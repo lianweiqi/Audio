@@ -1,12 +1,12 @@
 # %%
 import numpy as np
 import matplotlib.pyplot as plt
-with open('3.ae', 'rb') as file:
-    file.seek(4, 0)
-    A = np.fromfile(file, '>i2', -1)
-    C = A.reshape((-1, 3))
+with open('3.ae', 'rb') as ae:
+    ae.seek(4, 0)
+    A = np.fromfile(ae, '>i2', -1)
+    B = A.reshape((-1, 3))
     # print(C)
-    a, b, c = np.hsplit(C, 3)
+    a, b, c = np.hsplit(B, 3)
     print(a,'\n', b,'\n', c)
     plt.subplot(3, 1, 1)
     plt.plot(20*np.log10(np.abs(a[:150])))
@@ -18,8 +18,8 @@ with open('3.ae', 'rb') as file:
 # %%
 import numpy as np
 import matplotlib.pyplot as plt
-with open('3.tev', 'rb') as f:
-    f.seek(4, 0)
+with open('3.tev', 'rb') as tev:
+    tev.seek(4, 0)
     tev = np.fromfile(f, '>i2', -1)
     print(tev[:150])
     plt.plot(tev[:150])
