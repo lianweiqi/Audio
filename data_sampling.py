@@ -17,26 +17,27 @@ with open('3.ae', 'rb') as ae:
     (ae1, ae2, ae3) = (20*np.log10(ae1), 20*np.log10(ae2), 20*np.log10(ae3))
     # * 二维数组转一维
     (ae1, ae2, ae3) = (ae1.reshape((-1, )), ae2.reshape((-1, )), ae3.reshape((-1, )))
+# %%
+np.save("ae1.npy", ae1)
+np.save("ae2.npy", ae2)
+np.save("ae3.npy", ae3)
     
 # %%
 print(ae1.shape)
 print(sys.getsizeof(ae1))
 print(ae1,'\n', ae2,'\n', ae3)
-plt.figure(1)
-plt.plot(ae1)
-plt.plot(ae2)
-plt.plot(ae3)
-plt.figure(2)
-plt.subplot(3, 1, 1)
-plt.plot(ae1[:150])
-plt.subplot(3, 1, 2)
-plt.plot(ae2[:150])
-plt.subplot(3, 1, 3)
-plt.plot(ae3[:150])
-plt.figure(3)
-plt.plot(ae1[:150])
-plt.plot(ae2[:150])
-plt.plot(ae3[:150])
+fig, ax = plt.subplots(5, figsize=(7, 20))
+ax[0].plot(ae1)
+ax[0].plot(ae2)
+ax[0].plot(ae3)
+ax[1].plot(ae1[:150])
+ax[2].plot(ae2[:150])
+ax[3].plot(ae3[:150])
+ax[4].plot(ae1[:150])
+ax[4].plot(ae2[:150])
+ax[4].plot(ae3[:150])
+# plt.savefig("ae.pdf", format='pdf')
+# plt.savefig('ae.svg', format='svg')
 # %%
 
 # * 用于求log，将0变原数组中不为0的最小值
@@ -54,13 +55,17 @@ with open('3.tev', 'rb') as tev:
     tev_data = tev_data*1250/8/32767
     
     # * 转dB
-    tev_data = np.abs(tev_data)
-    tev_data = replaceZeroes(tev_data)
-    tev_data = np.where(tev_data > 0.0000000001, 20*np.log10(tev_data), -10)
+    # tev_data = np.abs(tev_data)
+    # tev_data = replaceZeroes(tev_data)
+    # tev_data = 20*np.log10(tev_data)
+    # tev_data = np.where(tev_data > 0.0000000001, 20*np.log10(tev_data), -10)
     # * 数据为一维数组
+# %%    
+np.save("tev.npy", tev_data)    
 # %%
 plt.figure(1)
-plt.plot(tev_data)
+plt.plot(tev_data[15000:17000])
 plt.figure(2)
-plt.plot(tev_data[17250:17350])
+plt.plot(tev_data[23000:25000])
+# plt.savefig('tev.pdf', format='pdf')
 # %%
