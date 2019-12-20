@@ -32,6 +32,12 @@ plt.show()
 # %%
 mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=40)
 print(mfcc.shape)
+plt.figure()
+librosa.display.specshow(mfcc, x_axis='time')
+plt.colorbar()
+plt.title('MFCC')
+plt.tight_layout()
+plt.show()
 
 # %%
 y = np.load("ae1.npy")
@@ -41,3 +47,19 @@ librosa.display.waveplot(y, sr)
 plt.figure(2)
 plt.plot(y)
 plt.show()
+# %%
+m_slaney = librosa.feature.mfcc(y=y, sr=sr, dct_type=2)
+m_htk = librosa.feature.mfcc(y=y, sr=sr, dct_type=3)
+fig, axes = plt.subplots(2, 1, figsize=(8, 12))
+librosa.display.specshow(m_slaney, x_axis='time', ax=axes[0])
+axes[0].set_title('RASTAMAT / Auditory toolbox (dct_type=2)')
+librosa.display.specshow(m_htk, x_axis='time')
+plt.colorbar(ax=axes[0])
+axes[1].set_title('HTK-style (dct_type=3)')
+plt.colorbar(ax=axes[1])
+plt.tight_layout()
+plt.show()
+
+
+
+# %%
