@@ -11,10 +11,13 @@ with open('3.ae', 'rb') as ae:
     (ae1, ae2, ae3) = ((ae1.astype('int32') - 32768).astype('float16'), 
                        (ae2.astype('int32') - 32768).astype('float16'), 
                        (ae3.astype('int32') - 32768).astype('float16'))
+    # * 归一化处理
+    (ae1, ae2, ae3) = (ae1/32767, ae2/32767, ae3/32767)
     # * 数字采样值转mV
-    (ae1, ae2, ae3) = (ae1*1250/8/32767, ae2*1250/8/32767, ae3*1250/8/32767)
+    # TODO 修改放大器倍数（变为uV）
+    # (ae1, ae2, ae3) = (ae1*1250//32767, ae2*1250/8/32767, ae3*1250/8/32767)
     # * mV转dB
-    (ae1, ae2, ae3) = (20*np.log10(ae1), 20*np.log10(ae2), 20*np.log10(ae3))
+    # (ae1, ae2, ae3) = (20*np.log10(ae1), 20*np.log10(ae2), 20*np.log10(ae3))
     # * 二维数组转一维
     (ae1, ae2, ae3) = (ae1.reshape((-1, )), ae2.reshape((-1, )), ae3.reshape((-1, )))
 # %%
@@ -60,6 +63,8 @@ with open('3.tev', 'rb') as tev:
     # tev_data = 20*np.log10(tev_data)
     # tev_data = np.where(tev_data > 0.0000000001, 20*np.log10(tev_data), -10)
     # * 数据为一维数组
+    print(tev_data.shape)
+    print(tev_data)
 # %%    
 np.save("tev.npy", tev_data)    
 # %%
