@@ -15,7 +15,7 @@ with open('3.ae', 'rb') as ae:
     (ae1, ae2, ae3) = (ae1/32767, ae2/32767, ae3/32767)
     # * 数字采样值转mV
     # TODO 修改放大器倍数（变为uV）
-    # (ae1, ae2, ae3) = (ae1*1250//32767, ae2*1250/8/32767, ae3*1250/8/32767)
+    # (ae1, ae2, ae3) = (ae1*1250000//32767, ae2*1250000//32767, ae3*1250000//32767)
     # * mV转dB
     # (ae1, ae2, ae3) = (20*np.log10(ae1), 20*np.log10(ae2), 20*np.log10(ae3))
     # * 二维数组转一维
@@ -54,8 +54,10 @@ with open('3.tev', 'rb') as tev:
     tev.seek(4, 0)
     tev_data = np.fromfile(tev, '<u2', 25690112)
     tev_data = (tev_data.astype('int32') - 32768).astype('float16')
+    # * 归一化处理
+    tev_data = tev_data/32767
     # * 转mV
-    tev_data = tev_data*1250/8/32767
+    # tev_data = tev_data*1250/8/32767
     
     # * 转dB
     # tev_data = np.abs(tev_data)
@@ -69,7 +71,7 @@ with open('3.tev', 'rb') as tev:
 np.save("tev.npy", tev_data)    
 # %%
 plt.figure(1)
-plt.plot(tev_data[15000:17000])
+plt.plot(tev_data)
 plt.figure(2)
 plt.plot(tev_data[23000:25000])
 # plt.savefig('tev.pdf', format='pdf')
