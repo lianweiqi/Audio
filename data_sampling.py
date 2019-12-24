@@ -12,7 +12,7 @@ with open('3.ae', 'rb') as ae:
                        (ae2.astype('int32') - 32768).astype('float16'), 
                        (ae3.astype('int32') - 32768).astype('float16'))
     # * 归一化处理
-    (ae1, ae2, ae3) = (ae1/32767, ae2/32767, ae3/32767)
+    (ae1, ae2, ae3) = (ae1/32768, ae2/32768, ae3/32768)
     # * 数字采样值转mV
     # TODO 修改放大器倍数（变为uV）
     # (ae1, ae2, ae3) = (ae1*1250//32767, ae2*1250/8/32767, ae3*1250/8/32767)
@@ -55,7 +55,7 @@ with open('3.tev', 'rb') as tev:
     tev_data = np.fromfile(tev, '<u2', 25690112)
     tev_data = (tev_data.astype('int32') - 32768).astype('float16')
     # * 转mV
-    tev_data = tev_data*1250/8/32767
+    tev_data = tev_data*1250/8/32768
     
     # * 转dB
     # tev_data = np.abs(tev_data)
