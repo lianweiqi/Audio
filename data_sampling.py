@@ -24,9 +24,11 @@ with open('3.ae', 'rb') as ae:
 np.save("ae1.npy", ae1)
 np.save("ae2.npy", ae2)
 np.save("ae3.npy", ae3)
-    
+
 # %%
 print(ae1.shape)
+print(ae1)
+print(np.matrix(ae1))
 print(sys.getsizeof(ae1))
 print(ae1,'\n', ae2,'\n', ae3)
 fig, ax = plt.subplots(5, figsize=(7, 20))

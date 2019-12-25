@@ -3,6 +3,12 @@ import librosa
 import librosa.display
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy.io.wavfile
+from scipy.fftpack import dct
+import soundfile as sf 
+# %%
+sample_rate, signal = scipy.io.wavfile.read('test.wav')
+print(sample_rate, signal, signal.shape)
 # %%
 y, sr = librosa.load("test.wav", sr=None)
 
